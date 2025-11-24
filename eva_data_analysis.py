@@ -35,17 +35,17 @@ for i in data:
         else:
             t=dt.datetime.strptime(tt,'%H:%M') #read duration from a string representation into a datetime object
             ttt = dt.timedelta(hours=t.hour, minutes=t.minute, seconds=t.second).total_seconds()/(60*60) # duration converted into (decimal) hours
-            print(t,ttt) # print time when the spacewalk started and its duration in decimal hours
+            print(t,ttt) # print on stdoout the time when the spacewalk started and its duration in decimal hours
             time.append(ttt) # append duration in decimal hours to the time array
             if 'date' in data[j].keys(): # read the date of the spacewalk 
                 date.append(dt.datetime.strptime(data[j]['date'][0:10], '%Y-%m-%d')) # read the first characters of the datetime (just the date part) and add to the date list
                 #date.append(data[j]['date'][0:10])
 
-            else:
+            else: # if there is not date value in the data row - ignore that rown and remove the value from the time array too
                 time.pop(0)
     j+=1
 
-t=[0]
+t=[0] # add 0 as the first value for summing consecutive values
 for i in time: # for all spacewalk durations in the time array
     t.append(t[-1]+i) # sum the current duration with the duration in the last element and add that sum as a new element to the array t
 
@@ -62,7 +62,7 @@ date,time = zip(*sorted(zip(date, time))) # unzip the sorted tuple array (sorted
 
 import matplotlib.pyplot as plt
 
-plt.plot(date,t[1:], 'ko-') # subset array from the second element till the end t[1:] because the first element is 0 and is an extra array element
+plt.plot(date,t[1:], 'ko-') # subset array from the second element till the end t[1:] because the first element is 0 and is an extra array element that is not needed, 'ko-' is the line and dot format of plot function
 plt.xlabel('Year')
 plt.ylabel('Total time spent in space to date (hours)')
 plt.tight_layout()

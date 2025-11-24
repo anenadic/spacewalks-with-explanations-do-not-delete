@@ -11,7 +11,7 @@ import json
 for i in range(375): # hardcoded number of entries, fragile to changes in the data file
     line=data_f.readline() # read the data file line by line
     print(line)
-    data.append(json.loads(line[1:-1])) # ignore the first character of each line (sometimes "["", other times ",") - fragile to the format
+    data.append(json.loads(line[1:-1])) # ignore the first character on each line (sometimes "[", other times ",") - fragile to the changes in data format
 #data.pop(0)
 ## Comment out this bit if you don't want the spreadsheet
 import csv
@@ -35,7 +35,7 @@ for i in data:
         else:
             t=dt.datetime.strptime(tt,'%H:%M') #read duration from a string representation into a datetime object
             ttt = dt.timedelta(hours=t.hour, minutes=t.minute, seconds=t.second).total_seconds()/(60*60) # duration converted into (decimal) hours
-            print(t,ttt) # print time when the spacewalk started and it duration in decimal hours
+            print(t,ttt) # print time when the spacewalk started and its duration in decimal hours
             time.append(ttt) # append duration in decimal hours to the time array
             if 'date' in data[j].keys(): # read the date of the spacewalk 
                 date.append(dt.datetime.strptime(data[j]['date'][0:10], '%Y-%m-%d')) # read the first characters of the datetime (just the date part) and add to the date list

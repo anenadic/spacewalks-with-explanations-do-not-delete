@@ -50,15 +50,12 @@ for i in time: # for all spacewalk durations in the time array
     t.append(t[-1]+i) # sum the current duration with the duration in the last element and add that sum as a new element to the array t
 
 
-date,time = zip(*sorted(zip(date, time))) # unzip the sorted tuple array (sorted by the first element of the tuple - i.e. by date)
-# The zip() function in Python combines multiple iterables such as lists, tuples, strings, dict etc, into a single iterator of tuples
-# names = ['John', 'Alice', 'Bob', 'Lucy']
-# scores = [85, 90, 78, 92]
-# [('John', 85), ('Alice', 90), ('Bob', 78), ('Lucy', 92)]
-# res = zip(names, scores)
-# print(list(res))
-# The * operator is used to call a function by unpacking an iterable
-# We can also reverse the operation by unzipping the data using the * operator.
+date,time = zip(*sorted(zip(date, time))) 
+# zip the two arrays together as a tuple ---> res = zip(date, time); print(list(res))
+# sorted(zip(date, time)) returns an array sorted by the first argument (date) ---> [(date, time), (date, time), (date, time)]
+# zip(*sorted(...)) ---> * operator unpacks an array so each element is a separate argument as zip does not work on a single argument array and needs multiple arguments
+# The * in a function call "unpacks" a list (or other iterable), making each of its elements a separate argument
+# The * operator is the reverse operation of zipping the data.
 
 import matplotlib.pyplot as plt
 
